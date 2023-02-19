@@ -5,6 +5,26 @@ import time
 import psutil
 import os
 
+start_length = input("What length do you want to start at? (default = 1) >>> ")
+if start_length == "":
+    start_length = 1
+
+timeout = input("What length do you want to stop at? (default = 20) >>> ")
+if timeout == "":
+    timeout = 20
+
+numbers = str(input("Does the password contain numbers? (default = True) >>> "))
+if numbers == "":
+    numbers = True
+elif numbers.lower() == "true":
+    numbers = True
+elif numbers.lower() == "false":
+    numbers = False
+else:
+    print("/!\ Input 'numbers' is not defined, the code will break /!\ ")
+    time.sleep(10)
+    raise()
+
 ################### Config
 password = input(str("Input the password you want to crack? >>> "))
 limit_cpu_usage = True
@@ -40,7 +60,7 @@ if limit_cpu_usage == True:
     limit_cpu()
 
 oldlen = 0
-for s in brute():
+for s in brute(start_length, timeout, numbers=numbers):
     if s == password:
         status = True
         break
